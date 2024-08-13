@@ -8,7 +8,7 @@ TaskNext is a minimalistic website designed to help you manage your tasks effici
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-
+![Magic UI](https://img.shields.io/badge/Magic_UI-FF7143?style=for-the-badge&logo=react&logoColor=white)
 
 <img src="./assets/image.png" width="80%">
 

@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { ObjectId } from "mongodb";
 import { IconCloudDemo } from "./components/Tweek";
+import { RiTaskFill } from "react-icons/ri";
 
 // Define the Todo interface
 interface Todo {
@@ -118,9 +119,9 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="w-full mt-3 px-11 py-2 bg-orange-600 text-white"
+              className="w-full flex gap-2 justify-center items-center mt-3 px-8 py-2 bg-orange-600 text-white"
             >
-              Add Task
+              <RiTaskFill size={20} /> Add Task
             </button>
           </form>
         </div>

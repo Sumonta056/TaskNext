@@ -1,4 +1,6 @@
 import { ObjectId } from "mongodb";
+import { MdDelete } from "react-icons/md";
+import { MdOutlineDownloadDone } from "react-icons/md";
 
 interface TodoDataProps {
   id: number;
@@ -41,7 +43,7 @@ const TodoData = ({
           className="px-4 py-2 bg-red-500 text-white"
           onClick={() => deleteTodo(mongoID)} // Call deleteTodo with mongoID
         >
-          Delete
+          <MdDelete size={25} />
         </button>
         <button
           className={`px-4 py-2 text-white ${
@@ -50,11 +52,10 @@ const TodoData = ({
           onClick={() => completeTodo(mongoID)} // Call completeTodo with mongoID
           disabled={isCompleted} // Disable button if isCompleted is true
         >
-          Done
+          <MdOutlineDownloadDone size={25} />
         </button>
       </td>
     </tr>
-   
   );
 };
 

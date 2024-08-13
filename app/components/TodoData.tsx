@@ -1,4 +1,4 @@
-const Todo = () => {
+const TodoData = () => {
   return (
     <tr className="bg-white border-b">
       <th
@@ -18,4 +18,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default TodoData ;

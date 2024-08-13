@@ -32,6 +32,9 @@ export default function Home() {
       toast.error("Failed to fetch Todos");
     }
   };
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const deleteTodo = async (mongoID: ObjectId) => {
     try {
@@ -45,9 +48,21 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+  const completeTodo = async (mongoID: ObjectId) => {
+    try {
+      const response = await axios.put(
+        "/api",
+        {},
+        {
+          params: { mongoID },
+        }
+      );
+      toast.success(response.data.msg);
+      await fetchTodos();
+    } catch (err) {
+      toast.error("Failed to complete Todo");
+    }
+  };
 
   const onChangeHandler = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -125,6 +140,7 @@ export default function Home() {
                 isCompleted={item.isCompleted}
                 mongoID={item._id}
                 deleteTodo={deleteTodo}
+                completeTodo={completeTodo}
               />
             ))}
           </tbody>

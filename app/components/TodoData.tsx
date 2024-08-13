@@ -7,7 +7,8 @@ interface TodoDataProps {
   description: string;
   isCompleted: boolean;
   mongoID: ObjectId;
-  deleteTodo: (id: ObjectId) => void; // Add deleteTodo function to props
+  deleteTodo: (id: ObjectId) => void;
+  completeTodo: (id: ObjectId) => void;
 }
 
 const TodoData = ({
@@ -17,6 +18,7 @@ const TodoData = ({
   isCompleted,
   mongoID,
   deleteTodo,
+  completeTodo,
 }: TodoDataProps) => {
   return (
     <tr className="bg-white border-b">
@@ -26,9 +28,15 @@ const TodoData = ({
       >
         {id + 1}
       </th>
-      <td className="px-6 py-4">{title}</td>
-      <td className="px-6 py-4">{description}</td>
-      <td className="px-6 py-4">{isCompleted ? "Completed" : "Pending"}</td>
+      <td className={`px-6 py-4 ${isCompleted ? "line-through" : ""}`}>
+        {title}
+      </td>
+      <td className={`px-6 py-4 ${isCompleted ? "line-through" : ""}`}>
+        {description}
+      </td>
+      <td className={`px-6 py-4 ${isCompleted ? "line-through" : ""}`}>
+        {isCompleted ? "Completed" : "Pending"}
+      </td>
       <td className="px-6 py-4 flex gap-3">
         <button
           className="px-4 py-2 bg-red-500 text-white"
@@ -36,7 +44,15 @@ const TodoData = ({
         >
           Delete
         </button>
-        <button className="px-4 py-2 bg-green-500 text-white">Done</button>
+        <button
+          className={`px-4 py-2 text-white ${
+            isCompleted ? "bg-gray-500" : "bg-green-500"
+          }`}
+          onClick={() => completeTodo(mongoID)} // Call completeTodo with mongoID
+          disabled={isCompleted} // Disable button if isCompleted is true
+        >
+          Done
+        </button>
       </td>
     </tr>
   );

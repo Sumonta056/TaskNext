@@ -24,3 +24,11 @@ export async function DELETE(request: any) {
   await TodoModel.findByIdAndDelete(mongoID);
   return NextResponse.json({ msg: "Todo Deleted Successfully" });
 }
+
+export async function PUT(request: any) {
+  const mongoID = await request.nextUrl.searchParams.get("mongoID");
+  await TodoModel.findByIdAndUpdate(mongoID, {
+    $set: { isCompleted: true },
+  });
+  return NextResponse.json({ msg: "Todo Completed Successfully" });
+}

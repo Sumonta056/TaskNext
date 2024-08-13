@@ -118,9 +118,9 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="px-11 py-2 bg-orange-600 text-white"
+              className="w-full mt-3 px-11 py-2 bg-orange-600 text-white"
             >
-              Add Todo
+              Add Task
             </button>
           </form>
         </div>

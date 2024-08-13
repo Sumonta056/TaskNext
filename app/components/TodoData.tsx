@@ -45,7 +45,7 @@ const TodoData = ({
         </button>
         <button
           className={`px-4 py-2 text-white ${
-            isCompleted ? "bg-gray-500" : "bg-green-500"
+            isCompleted ? "bg-stone-200  text-gray-400" : "bg-green-500"
           }`}
           onClick={() => completeTodo(mongoID)} // Call completeTodo with mongoID
           disabled={isCompleted} // Disable button if isCompleted is true

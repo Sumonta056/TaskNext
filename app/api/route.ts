@@ -18,3 +18,9 @@ export async function POST(request: any) {
   await TodoModel.create({ title, description });
   return NextResponse.json({ msg: "Todo Added Successfully" });
 }
+
+export async function DELETE(request: any) {
+  const mongoID = await request.nextUrl.searchParams.get("mongoID");
+  await TodoModel.findByIdAndDelete(mongoID);
+  return NextResponse.json({ msg: "Todo Deleted Successfully" });
+}

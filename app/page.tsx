@@ -1,15 +1,53 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoData from "./components/TodoData";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { ObjectId } from "mongodb";
+
+// Define the Todo interface
+interface Todo {
+  _id: ObjectId; // MongoDB ObjectId
+  id: number;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+}
 
 export default function Home() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
   });
+
+  // Use the Todo interface to type the todos state
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const fetchTodos = async () => {
+    try {
+      const response = await axios.get("/api");
+      setTodos(response.data.todos);
+    } catch (err) {
+      toast.error("Failed to fetch Todos");
+    }
+  };
+
+  const deleteTodo = async (mongoID: ObjectId) => {
+    try {
+      const response = await axios.delete("/api", {
+        params: { mongoID },
+      });
+      toast.success(response.data.msg);
+      await fetchTodos();
+    } catch (err) {
+      toast.error("Failed to delete Todo");
+    }
+  };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const onChangeHandler = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
@@ -23,6 +61,7 @@ export default function Home() {
       const response = await axios.post("/api", formData);
       toast.success(response.data.msg);
       setFormData({ title: "", description: "" });
+      await fetchTodos();
     } catch (err) {
       toast.error("Failed to add Todo");
     }
@@ -72,15 +111,22 @@ export default function Home() {
                 Status
               </th>
               <th scope="col" className="px-6 py-3">
-                Status
+                Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            <TodoData />
-            <TodoData />
-            <TodoData />
-            <TodoData />
+            {todos.map((item, index) => (
+              <TodoData
+                id={index}
+                key={index}
+                title={item.title}
+                description={item.description}
+                isCompleted={item.isCompleted}
+                mongoID={item._id}
+                deleteTodo={deleteTodo}
+              />
+            ))}
           </tbody>
         </table>
       </div>

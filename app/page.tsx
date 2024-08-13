@@ -3,6 +3,7 @@ import { useState } from "react";
 import TodoData from "./components/TodoData";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -18,11 +19,10 @@ export default function Home() {
 
   const onSubmitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-
     try {
-      //api code
-
-      toast.success("Todo Added Successfully");
+      const response = await axios.post("/api", formData);
+      toast.success(response.data.msg);
+      setFormData({ title: "", description: "" });
     } catch (err) {
       toast.error("Failed to add Todo");
     }
